@@ -21,6 +21,7 @@ jobs:
     - name: Echo
       run: |
         echo ${{ GITHUB_ACTION_REPOSITORY }}
+        echo ${{ GITHUB_REPOSITORY }}
         echo ${{ secrets.GITHUB_TOKEN }}
         echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
         echo $OWNER_REPO
