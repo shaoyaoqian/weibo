@@ -65,7 +65,7 @@ class TweetSpider(Spider):
             if item['isLongText'] or ():
                 url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
                 yield Request(url, callback=parse_long_tweet, meta={'item': item})
-            elif 'retweeted' in tweet and item['retweeted']['isLongText']:
+            elif 'retweeted' in item and item['retweeted']['isLongText']:
                 url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
                 yield Request(url, callback=parse_long_retweeted, meta={'item': item})
             else:
