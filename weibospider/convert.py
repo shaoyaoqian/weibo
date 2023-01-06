@@ -53,7 +53,8 @@ def download_pics(pic_id):
         r = requests.get(url)
         print("Downloading ",url)
         with open('../output/picture/'+url_base + '_' + pic_id + '.jpg', "wb") as f:
-            f.write(r.content)
+            # f.write(r.content)
+            pass
 
 
 with open("../output/user_spider.jsonl", "r") as fo:
