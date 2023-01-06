@@ -12,6 +12,27 @@ from spiders.common import parse_tweet_info
 import os
 USERID = os.getenv('WEIBO_USER')
 
+
+
+def parse_long_tweet(response):
+    """
+    解析长推文
+    """
+    data = json.loads(response.text)['data']
+    item = response.meta['item']
+    item['content'] = data['longTextContent']
+    if 'retweeted' in item and item['retweeted']['isLongText']:
+        url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
+        yield Request(url, callback=parse_long_retweeted, meta={'item': item})
+    else:
+        yield item
+
+def parse_long_retweeted(response):
+    data = json.loads(response.text)['data']
+    item = response.meta['item']
+    item['retweeted']['content'] = data['longTextContent']
+    yield item
+
 class TweetSpider(Spider):
     """
     用户推文数据采集
@@ -29,26 +50,6 @@ class TweetSpider(Spider):
             url = f"https://weibo.com/ajax/statuses/mymblog?uid={user_id}&page=1"
             print(url)
             yield Request(url, callback=self.parse, meta={'user_id': user_id, 'page_num': 1})
-    
-    def parse_long_tweet(self, response):
-        """
-        解析长推文
-        """
-        data = json.loads(response.text)['data']
-        item = response.meta['item']
-        item['content'] = data['longTextContent']
-        if 'retweeted' in item and item['retweeted']['isLongText']:
-            url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
-            yield Request(url, callback=parse_long_retweeted, meta={'item': item})
-        else:
-            yield item
-
-    def parse_long_retweeted(self, response):
-        data = json.loads(response.text)['data']
-        item = response.meta['item']
-        item['retweeted']['content'] = data['longTextContent']
-        yield item
-
     
     def parse(self, response, **kwargs):
         """
