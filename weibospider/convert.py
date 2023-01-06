@@ -57,15 +57,15 @@ def download_pics(pic_id):
 
 
 with open("../output/user_spider.jsonl", "r") as fo:
-    for line in fo.readlines():
-        user_data = json.loads(line)
-        user_id   = user_data["_id"]
-        data["user"] = user_data
-        redis_weibo_user_info = redis_weibo_user_info_key.format(userid=user_id)
-        r.sadd(redis_weibo_users_key, user_id)
-        r.set(redis_weibo_user_info, json.dumps(user_data))
-        print(user_id)
-        print(redis_weibo_user_info)
+    line = fo.readline()
+    user_data = json.loads(line)
+    assert user_data["_id"] is USERID
+    data["user"] = user_data
+    redis_weibo_user_info = redis_weibo_user_info_key.format(userid=USERID)
+    r.sadd(redis_weibo_users_key, USERID)
+    r.set(redis_weibo_user_info, json.dumps(user_data))
+    print(USERID)
+    print(redis_weibo_user_info)
 
 
 def tweet_to_markdown(tweet):
@@ -92,26 +92,31 @@ def tweet_to_markdown(tweet):
     return tweet_content+pics_div.format(pics_content=pics_content,div_id=div_id)
 
 
+# 数据库中的
+all_tweets = r.smembers(redis_weibo_user_tweets_key.format(userid=USERID))
+def tweet_to_redis(tweet):
+    redis_key_1 = redis_weibo_user_tweets_key.format(userid=USERID)
+    redis_key_2 = redis_weibo_tweet_key.format(mblogid=tweet["mblogid"])
+    redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=tweet["mblogid"])
+    r.sadd(redis_key_1, tweet["mblogid"])                            # 所有mblogid的集合
+    r.set(redis_key_2, json.dumps(tweet))                            # 每个mblogid对应的文本，可解析为json
+    r.set(redis_key_3, tweet_to_markdown(tweet))                     # 每个mblogid对应的文本，可解析为json
+    print(redis_key_1)
+    print(redis_key_2)
+    print(redis_key_3)
+    # 避免重复下载图片
+    if tweet["mblogid"].encode('utf-8') not in all_tweets:
+        for pic_id in tweet["pic_urls"]:
+            download_pics(pic_id)
+
+
 with open("../output/tweet_spider.jsonl", "r") as fo:
-    all_tweets = r.smembers(redis_weibo_user_tweets_key.format(userid=USERID))
     for line in fo.readlines():
         tweet = json.loads(line)
-        redis_key_1 = redis_weibo_user_tweets_key.format(userid=user_id)
-        redis_key_2 = redis_weibo_tweet_key.format(mblogid=tweet["mblogid"])
-        redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=tweet["mblogid"])
-        r.sadd(redis_key_1, tweet["mblogid"])                            # 所有mblogid的集合
-        r.set(redis_key_2, json.dumps(tweet))                            # 每个mblogid对应的文本，可解析为json
-        r.set(redis_key_3, tweet_to_markdown(tweet))                     # 每个mblogid对应的文本，可解析为json
-        print(redis_key_1)
-        print(redis_key_2)
-        print(redis_key_3)
-        # 避免重复下载图片
-        if tweet["mblogid"].encode('utf-8') not in all_tweets:
-            for pic_id in tweet["pic_urls"]:
-                download_pics(pic_id)
-
-
-
+        tweet_to_redis(tweet)
+        # 如果是转发的微博
+        if 'retweeted' in tweet:
+            tweet_to_redis(tweet['retweeted'])
 
 r.save()
 
@@ -124,6 +129,10 @@ for mblogid in all_tweets:
     redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=mblogid.decode())
     tweet = json.loads(r.get(redis_key_2).decode())
     tweet['content'] = r.get(redis_key_3).decode()
+    if 'retweeted' in tweet:
+        retweeted_mblogid = tweet['retweeted']["mblogid"]
+        redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweeted_mblogid)
+        tweet['retweeted']['content'] = r.get(redis_key_3).decode()
     tweets.append(tweet)
 
 tweets = sorted(tweets, key=lambda s: s['created_at'], reverse=True)
