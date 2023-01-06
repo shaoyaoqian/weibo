@@ -5,11 +5,11 @@ Author: nghuyong
 Mail: nghuyong@163.com
 Created Time: 2020/4/14
 """
+import os
 import json
 from scrapy import Spider
 from scrapy.http import Request
 from spiders.common import parse_tweet_info
-import os
 USERID = os.getenv('WEIBO_USER')
 
 
@@ -29,6 +29,7 @@ def parse_long_tweet(response):
 
 def parse_long_retweeted(response):
     data = json.loads(response.text)['data']
+    print(data['longTextContent'],"\n\n\n\n")
     item = response.meta['item']
     item['retweeted']['content'] = data['longTextContent']
     yield item
