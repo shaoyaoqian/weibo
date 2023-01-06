@@ -53,8 +53,7 @@ def download_pics(pic_id):
         r = requests.get(url)
         print("Downloading ",url)
         with open('../output/picture/'+url_base + '_' + pic_id + '.jpg', "wb") as f:
-            # f.write(r.content)
-            pass
+            f.write(r.content)
 
 
 with open("../output/user_spider.jsonl", "r") as fo:
@@ -106,6 +105,11 @@ def tweet_to_redis(tweet):
     print(redis_key_1)
     print(redis_key_2)
     print(redis_key_3)
+    # 如果含有转发的微博
+    if 'retweeted' in tweet:
+        retweet_mblogid = tweet['retweeted']['mblogid']
+        redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweet_mblogid)
+        r.set(redis_key_3,tweet_to_markdown(tweet['retweeted']))
     # 避免重复下载图片
     if tweet["mblogid"].encode('utf-8') not in all_tweets:
         for pic_id in tweet["pic_urls"]:
@@ -116,9 +120,6 @@ with open("../output/tweet_spider.jsonl", "r") as fo:
     for line in fo.readlines():
         tweet = json.loads(line)
         tweet_to_redis(tweet)
-        # 如果是转发的微博
-        if 'retweeted' in tweet:
-            tweet_to_redis(tweet['retweeted'])
 
 r.save()
 

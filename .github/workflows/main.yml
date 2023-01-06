@@ -17,15 +17,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Echo
-      run: |
-        echo $GITHUB_REPOSITORY
-        echo $
-        echo ${{ secrets.GITHUB_TOKEN }}
-        echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-        echo $OWNER_REPO
-    
     - name: Checkout
       uses: actions/checkout@main
       
