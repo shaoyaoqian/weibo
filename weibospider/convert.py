@@ -25,7 +25,9 @@ redis_weibo_tweet_content_key  = "weibo:tweet:mblogid:{mblogid:s}:content"
 
 import os
 USERID = os.getenv('WEIBO_USER')
-GITHUB_ACTION_REPOSITORY = os.environ.get('GITHUB_ACTION_REPOSITORY', None)
+GITHUB_ACTION_REPOSITORY = os.getenv('OWNER_REPO')
+
+
 r = redis.StrictRedis(host='localhost', port=29384, db=6)
 all_tweets = r.smembers(redis_weibo_user_tweets_key.format(userid=USERID))
 print(all_tweets)
