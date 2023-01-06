@@ -11,7 +11,7 @@ pip install requirements.txt
 ```
 
 ## 使用
-0. 删除 `dump.rdb`，创建 `output` 分支
+0. 删除 `main` 分支中的 `dump.rdb` 文件，创建 `output` 分支
 1. 在 `.github/workflows/main.yml` 中设置微博ID `WEIBO_USER`
 2. 在 `weibospider/cookie.txt` 中设置 cookies
 3. 将代码 push 到 GitHub 仓库，开启 GitHub Action
