@@ -16,6 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
+    - run: echo ${{ env.GITHUB_ACTION_REPOSITORY }}
+
     - name: Checkout
       uses: actions/checkout@main
       
