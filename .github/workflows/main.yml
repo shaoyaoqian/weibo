@@ -3,6 +3,7 @@ name: Collect tweets on weibo
 # oh,my dear son!
 env:
   WEIBO_USER: 2652887141
+  OWNER_REPO: ${{ github.repository }}
 
 on:
   push:
@@ -23,6 +24,7 @@ jobs:
         echo ${{ GITHUB_ACTION_REPOSITORY }}
         echo ${{ secrets.GITHUB_TOKEN }}
         echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        echo $OWNER_REPO
     
     - name: Checkout
       uses: actions/checkout@main
