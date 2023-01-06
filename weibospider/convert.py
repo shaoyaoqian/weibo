@@ -59,8 +59,7 @@ def download_pics(pic_id):
 with open("../output/user_spider.jsonl", "r") as fo:
     line = fo.readline()
     user_data = json.loads(line)
-    print(user_data["_id"], "and", USERID)
-    assert user_data["_id"] is str(USERID)
+    assert user_data["_id"] == str(USERID)
     data["user"] = user_data
     redis_weibo_user_info = redis_weibo_user_info_key.format(userid=USERID)
     r.sadd(redis_weibo_users_key, USERID)
