@@ -110,12 +110,12 @@ def tweet_to_redis(tweet):
         redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweet_mblogid)
         r.set(redis_key_3,tweet_to_markdown(tweet['retweeted']))
     # 避免重复下载图片
-    if tweet["mblogid"].encode('utf-8') not in all_tweets:
-        for pic_id in tweet["pic_urls"]:
-            download_pics(pic_id)
-        if 'retweeted' in tweet:
-            for pic_id in tweet['retweeted']['pic_urls']:
-                download_pics(pic_id)
+    # if tweet["mblogid"].encode('utf-8') not in all_tweets:
+    #     for pic_id in tweet["pic_urls"]:
+    #         download_pics(pic_id)
+    #     if 'retweeted' in tweet:
+    #         for pic_id in tweet['retweeted']['pic_urls']:
+    #             download_pics(pic_id)
 
 
 with open("../output/tweet_spider.jsonl", "r") as fo:
