@@ -3,7 +3,6 @@ name: Collect tweets on weibo
 # oh,my dear son!
 env:
   WEIBO_USER: 2652887141
-  OWNER_REPO: ${{ env.GITHUB_ACTION_REPOSITORY }}
 
 on:
   push:
