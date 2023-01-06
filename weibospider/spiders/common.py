@@ -102,9 +102,11 @@ def parse_tweet_info(data):
         'isLongText': False,
         "user": parse_user_info(data['user']),
     }
+    tweet['url'] = f"https://weibo.com/{tweet['user']['_id']}/{tweet['mblogid']}"
+    if 'retweeted_status' in data:
+        tweet["retweeted"] = parse_tweet_info(data["retweeted_status"])
     if 'page_info' in data and data['page_info'].get('object_type', '') == 'video':
         tweet['video'] = data['page_info']['media_info']['mp4_720p_mp4']
-    tweet['url'] = f"https://weibo.com/{tweet['user']['_id']}/{tweet['mblogid']}"
     if 'continue_tag' in data and data['isLongText']:
         tweet['isLongText'] = True
     return tweet
