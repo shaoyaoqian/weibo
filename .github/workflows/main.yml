@@ -18,9 +18,9 @@ jobs:
     steps:
     
     - run: |
-      echo ${{ env.GITHUB_ACTION_REPOSITORY }}
-      echo ${{ GITHUB_ACTION_REPOSITORY }}
-      echo ${{ secrets.GITHUB_TOKEN }}
+        echo ${{ env.GITHUB_ACTION_REPOSITORY }}
+        echo ${{ GITHUB_ACTION_REPOSITORY }}
+        echo ${{ secrets.GITHUB_TOKEN }}
 
     - name: Checkout
       uses: actions/checkout@main
