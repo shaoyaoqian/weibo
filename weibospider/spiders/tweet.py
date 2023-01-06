@@ -8,7 +8,7 @@ Created Time: 2020/4/14
 import json
 from scrapy import Spider
 from scrapy.http import Request
-from spiders.common import parse_tweet_info, parse_long_tweet
+from spiders.common import parse_tweet_info
 import os
 USERID = os.getenv('WEIBO_USER')
 
@@ -40,11 +40,34 @@ class TweetSpider(Spider):
         for tweet in tweets:
             item = parse_tweet_info(tweet)
             del item['user']
-            if item['isLongText']:
+            if item['isLongText'] or ():
                 url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
                 yield Request(url, callback=parse_long_tweet, meta={'item': item})
+            elif 'retweeted' in tweet and item['retweeted']['isLongText']:
+                url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
+                yield Request(url, callback=parse_long_retweeted, meta={'item': item})
             else:
                 yield item
+
+        def parse_long_tweet(self, response):
+            """
+            解析长推文
+            """
+            data = json.loads(response.text)['data']
+            item = response.meta['item']
+            item['content'] = data['longTextContent']
+            if 'retweeted' in item and item['retweeted']['isLongText']:
+                url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
+                yield Request(url, callback=parse_long_retweeted, meta={'item': item})
+            else:
+                yield item
+
+        def parse_long_retweeted(self, response):
+            data = json.loads(response.text)['data']
+            item = response.meta['item']
+            item['retweeted']['content'] = data['longTextContent']
+            yield item
+
         if tweets:
             user_id, page_num = response.meta['user_id'], response.meta['page_num']
             page_num += 1
