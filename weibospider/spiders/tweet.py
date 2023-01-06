@@ -15,21 +15,13 @@ USERID = os.getenv('WEIBO_USER')
 
 
 def parse_long_tweet(response):
-    """
-    解析长推文
-    """
     data = json.loads(response.text)['data']
     item = response.meta['item']
     item['content'] = data['longTextContent']
-    if 'retweeted' in item and item['retweeted']['isLongText']:
-        url = "https://weibo.com/ajax/statuses/longtext?id=" + item['retweeted']['mblogid']
-        yield Request(url, callback=parse_long_retweeted, meta={'item': item})
-    else:
-        yield item
+    yield item
 
 def parse_long_retweeted(response):
     data = json.loads(response.text)['data']
-    print(data['longTextContent'],"\n\n\n\n")
     item = response.meta['item']
     item['retweeted']['content'] = data['longTextContent']
     yield item
