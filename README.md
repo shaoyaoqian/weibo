@@ -23,11 +23,30 @@ pip install requirements.txt
 
 ### 效果展示
 (随便找的微博账号)
-![](https://githubimages.pengfeima.cn/images/202301052051494.png)
-<img width="730" alt="image" src="https://user-images.githubusercontent.com/115222128/210935526-22d1359b-8113-4482-a228-44023cf3ee62.png">
-<img width="764" alt="image" src="https://user-images.githubusercontent.com/115222128/210935575-3ca51d75-d19f-495b-af1c-2f38bf301154.png">
-<img width="787" alt="image" src="https://user-images.githubusercontent.com/115222128/210935601-f7b21ea3-800e-4533-96b4-241773997f43.png">
-<img width="545" alt="image" src="https://user-images.githubusercontent.com/115222128/210935663-b0a2b4e8-17b8-4bed-a091-d2878ef6259d.png">
+<img width="300" alt="image" src="https://githubimages.pengfeima.cn/images/202301052051494.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/115222128/210935526-22d1359b-8113-4482-a228-44023cf3ee62.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/115222128/210935575-3ca51d75-d19f-495b-af1c-2f38bf301154.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/115222128/210935601-f7b21ea3-800e-4533-96b4-241773997f43.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/115222128/210935663-b0a2b4e8-17b8-4bed-a091-d2878ef6259d.png">
+
+#### 移动端
+
+
+
+![4721673065737_.pic](https://githubimages.pengfeima.cn/images/202301071257978.jpg)
+
+![4681673065735_.pic](https://githubimages.pengfeima.cn/images/202301071258295.jpg)
+
+![4701673065736_.pic](https://githubimages.pengfeima.cn/images/202301071258553.jpg)
+
+![4711673065737_.pic](https://githubimages.pengfeima.cn/images/202301071257199.jpg)
+
+
+
+
+
+
+
 
 
 ## Contributing
@@ -48,5 +67,4 @@ MIT
 
 ## TODO
 
-1. 爬取转发内容
-2. 爬取视频
+1. 爬取视频
