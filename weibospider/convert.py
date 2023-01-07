@@ -108,7 +108,6 @@ def tweet_to_redis(tweet):
     if 'retweeted' in tweet:
         retweet_mblogid = tweet['retweeted']['mblogid']
         redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweet_mblogid)
-        r.sadd(redis_key_1, retweet_mblogid)
         r.set(redis_key_3, tweet_to_markdown(tweet['retweeted']))
     # 避免重复下载图片
     if tweet["mblogid"].encode('utf-8') not in all_tweets:
