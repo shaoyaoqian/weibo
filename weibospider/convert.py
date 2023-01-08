@@ -95,22 +95,22 @@ def tweet_to_markdown(tweet):
 # 数据库中的
 all_tweets = r.smembers(redis_weibo_user_tweets_key.format(userid=USERID))
 def tweet_to_redis(tweet):
-    redis_key_1 = redis_weibo_user_tweets_key.format(userid=USERID)
-    redis_key_2 = redis_weibo_tweet_key.format(mblogid=tweet["mblogid"])
-    redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=tweet["mblogid"])
-    r.sadd(redis_key_1, tweet["mblogid"])                            # 所有mblogid的集合
-    r.set(redis_key_2, json.dumps(tweet))                            # 每个mblogid对应的文本，可解析为json
-    r.set(redis_key_3, tweet_to_markdown(tweet))                     # 每个mblogid对应的文本，可解析为json
-    print(redis_key_1)
-    print(redis_key_2)
-    print(redis_key_3)
-    # 如果含有转发的微博
-    if 'retweeted' in tweet:
-        retweet_mblogid = tweet['retweeted']['mblogid']
-        redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweet_mblogid)
-        r.set(redis_key_3, tweet_to_markdown(tweet['retweeted']))
-    # 避免重复下载图片
+    print("从json到数据库")
+    # 避免重复下载
     if tweet["mblogid"].encode('utf-8') not in all_tweets:
+        print("保存微博 ",tweet["mblogid"])
+        redis_key_1 = redis_weibo_user_tweets_key.format(userid=USERID)
+        redis_key_2 = redis_weibo_tweet_key.format(mblogid=tweet["mblogid"])
+        redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=tweet["mblogid"])
+        r.sadd(redis_key_1, tweet["mblogid"])                            # 所有mblogid的集合
+        r.set(redis_key_2, json.dumps(tweet))                            # 每个mblogid对应的文本，可解析为json
+        r.set(redis_key_3, tweet_to_markdown(tweet))                     # 每个mblogid对应的文本，可解析为json
+        # 如果含有转发的微博
+        if 'retweeted' in tweet:
+            retweet_mblogid = tweet['retweeted']['mblogid']
+            redis_key_3 = redis_weibo_tweet_markdown_key.format(mblogid=retweet_mblogid)
+            r.set(redis_key_3, tweet_to_markdown(tweet['retweeted']))
+        # 下载照片
         for pic_id in tweet["pic_urls"]:
             download_pics(pic_id)
         if 'retweeted' in tweet:
