@@ -1,6 +1,27 @@
 {
   "tweets": [
     {
+      "_id": "4994989220168533",
+      "mblogid": "NDR6q0HQh",
+      "created_at": "2024-01-28 02:54:55",
+      "geo": null,
+      "ip_location": "发布于 中国香港",
+      "reposts_count": 0,
+      "comments_count": 0,
+      "attitudes_count": 11,
+      "source": "",
+      "content": "「時寐」·安溥。<br>2024年第一场演出，听到了很多在青年时候不停循环的歌，如何/my life will/我想你要走了/wish you were here/喜欢/这个世界…<br><br>曾经多愁善感的我也曾循环着这些歌想过很多人生问题，那些问题有的被解决，有的已释怀，还有一些可能还会在一些夜晚卷土重来。<br>青年的我容易情绪震荡，怀有更多悲伤和悲观；如今的我似乎已经更能学会平静，能够理解何谓最好的时光。<br><br>安溥今天一如既往，通过分享自己的生命体验，给大家最真挚和真切的祝福；<br>她说：希望大家可以跟沉香木一样，「能够像植物一样，在经历一些痛苦和创伤以后，找到让自己愈合的方法」。<br>她说：「我们要持续找寻生存的方法，一个季节或者一个百年；一次一次让寻回平静」。<br><br>如今的我和变「老」的偶像一样，也在迈入不一样的人生阶段，而此刻我更能理解那一句：「而我，不停的，无悔的，与你的，总有的」。<br><br>很好的一个晚上，谢谢安溥，与你握手，日后常相见。\n    <div id=\"0x5257d450\" class=\"justified-gallery\">\n        \n        <a data-fancybox=\"0x5257d450\" href=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/original_9e1fd865gy1hm8rp1iueaj22g01u24qp.jpg\">\n            <img no-lazy src=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/bmiddle_9e1fd865gy1hm8rp1iueaj22g01u24qp.jpg\" >\n        </a>\n    \n        <a data-fancybox=\"0x5257d450\" href=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/original_9e1fd865gy1hm8rp2ih2pj22se23ahdt.jpg\">\n            <img no-lazy src=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/bmiddle_9e1fd865gy1hm8rp2ih2pj22se23ahdt.jpg\" >\n        </a>\n    \n        <a data-fancybox=\"0x5257d450\" href=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/original_9e1fd865gy1hm8rp0s7d0j23402c0kjl.jpg\">\n            <img no-lazy src=\"https://raw.githubusercontent.com/shaoyaoqian/weibo/output/output/picture/bmiddle_9e1fd865gy1hm8rp0s7d0j23402c0kjl.jpg\" >\n        </a>\n    \n    </div>\n    ",
+      "pic_urls": [
+        "9e1fd865gy1hm8rp1iueaj22g01u24qp",
+        "9e1fd865gy1hm8rp2ih2pj22se23ahdt",
+        "9e1fd865gy1hm8rp0s7d0j23402c0kjl"
+      ],
+      "pic_num": 3,
+      "isLongText": true,
+      "url": "https://weibo.com/2652887141/NDR6q0HQh",
+      "crawl_time": 1706489902
+    },
+    {
       "_id": "4953061300898170",
       "mblogid": "NmgmK3LEC",
       "created_at": "2023-10-04 10:08:20",
@@ -8715,13 +8736,13 @@
   ],
   "user": {
     "_id": "2652887141",
-    "avatar_hd": "https://tvax1.sinaimg.cn/crop.0.0.512.512.1024/9e1fd865ly8gddvdwtgxsj20e80e8t9b.jpg?KID=imgbed,tva&Expires=1705896293&ssig=xO2aVOH0BE",
+    "avatar_hd": "https://tvax1.sinaimg.cn/crop.0.0.512.512.1024/9e1fd865ly8gddvdwtgxsj20e80e8t9b.jpg?KID=imgbed,tva&Expires=1706500709&ssig=gsoXGKK8f8",
     "nick_name": "易個罐頭",
     "verified": false,
     "description": "不要寻找 消失的人已经变成了一首诗 但消失的月亮会一次次再回来",
     "followers_count": 500,
-    "friends_count": 364,
-    "statuses_count": 566,
+    "friends_count": 365,
+    "statuses_count": 567,
     "gender": "f",
     "location": "浙江",
     "mbrank": 7,
@@ -8732,6 +8753,6 @@
     "ip_location": "",
     "sunshine_credit": "信用较好",
     "label_desc": [],
-    "crawl_time": 1705885494
+    "crawl_time": 1706489910
   }
 }
